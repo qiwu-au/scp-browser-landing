@@ -11,17 +11,17 @@ CONTACT_EMAIL = "qi.wu@biomed.au.dk"
 
 # Deployed links (replace with your real URLs or localhost while testing)
 BROWSER_LINKS = {
-    "Kidney": {
+    "Mouse kidney": {
         "url": "https://scp-browser-kidney.streamlit.app/",
-        "blurb": "Single-cell kidney proteome browser",
+        "blurb": "Single-cell mouse kidney proteome browser",
     },
-    "Kidney (Re-annotated)": {
+    "Mouse kidney (Re-annotated)": {
         "url": "https://scp-browser-kidney-reannotated.streamlit.app/",
-        "blurb": "Re-annotated single-cell kidney proteome browser (to resolve more cell types)",
+        "blurb": "Re-annotated single-cell mouse kidney proteome browser (to resolve more cell types)",
     },
-    "DCT": {
+    "Mouse DCT": {
         "url": "https://scp-browser-dct.streamlit.app/",
-        "blurb": "Distal convoluted tubule (DCT) single-cell proteome browser",
+        "blurb": "Mouse distal convoluted tubule (DCT) single-cell proteome browser",
     },
 }
 # Optional: local testing
@@ -144,11 +144,11 @@ def browser_card(name: str, url: str, blurb: str):
 
 c1, c2, c3 = st.columns(3, gap="large")
 with c1:
-    browser_card("Kidney", BROWSER_LINKS["Kidney"]["url"], BROWSER_LINKS["Kidney"]["blurb"])
+    browser_card("Mouse kidney", BROWSER_LINKS["Mouse kidney"]["url"], BROWSER_LINKS["Mouse kidney"]["blurb"])
 with c2:
-    browser_card("Kidney (Re-annotated)", BROWSER_LINKS["Kidney (Re-annotated)"]["url"], BROWSER_LINKS["Kidney (Re-annotated)"]["blurb"])
+    browser_card("Mouse kidney (Re-annotated)", BROWSER_LINKS["Mouse kidney (Re-annotated)"]["url"], BROWSER_LINKS["Mouse kidney (Re-annotated)"]["blurb"])
 with c3:
-    browser_card("DCT", BROWSER_LINKS["DCT"]["url"], BROWSER_LINKS["DCT"]["blurb"])
+    browser_card("Mouse DCT", BROWSER_LINKS["Mouse DCT"]["url"], BROWSER_LINKS["Mouse DCT"]["blurb"])
 
 st.markdown("---")
 
