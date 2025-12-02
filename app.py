@@ -5,32 +5,44 @@ from datetime import date
 from pathlib import Path
 
 # --------------------------- CONFIGURE HERE --------------------------- #
-APP_TITLE     = "Single-Cell Kidney Proteome Browsers"
+APP_TITLE     = "Kidney Single-Cell Proteome Browsers"
 CONTACT_NAME  = "Qi Wu"
 CONTACT_EMAIL = "qi.wu@biomed.au.dk"
 
 # Deployed links (replace with your real URLs or localhost while testing)
 BROWSER_LINKS = {
-    "Mouse kidney": {
+    "Mouse Kidney": {
         "url": "https://scp-browser-kidney.streamlit.app/",
-        "blurb": "Single-cell mouse kidney proteome browser",
+        "blurb": "Mouse kidney single-cell proteome browser",
     },
-    "Mouse kidney (Re-annotated)": {
+    "Mouse Kidney (Re-annotated)": {
         "url": "https://scp-browser-kidney-reannotated.streamlit.app/",
-        "blurb": "Re-annotated single-cell mouse kidney proteome browser (to resolve more cell types)",
+        "blurb": "Re-annotated mouse kidney single-cell proteome browser (to resolve more cell types)",
     },
     "Mouse DCT": {
         "url": "https://scp-browser-dct.streamlit.app/",
         "blurb": "Mouse distal convoluted tubule (DCT) single-cell proteome browser",
     },
 }
-# Optional: local testing
-# BROWSER_LINKS["Kidney"]["url"] = "http://localhost:8502"
-# BROWSER_LINKS["Kidney (Re-annotated)"]["url"] = "http://localhost:8504"
-# BROWSER_LINKS["DCT"]["url"] = "http://localhost:8503"
 # --------------------------------------------------------------------- #
 
 st.set_page_config(page_title=APP_TITLE, layout="wide")
+
+st.markdown(
+    """
+    <style>
+      /* Give the logo room so it doesn't get clipped */
+      .block-container { padding-top: 1.5rem; }
+
+      /* Tighten H1 spacing */
+      h1 { margin-top: 0.2rem; }
+
+      /* Trim any extra top padding in the first column (logo/title area) */
+      [data-testid="stVerticalBlock"] > div:first-child { padding-top: 0rem; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # ---------- AU brand-ish colors ----------
 AU_BLUE       = "#002F6C"  # primary
@@ -67,54 +79,39 @@ st.markdown(
       .au-linkbtn a:hover {{ background:{AU_BLUE}; color:white; }}
       .au-header-right {{ text-align:right; }}
       .au-header-title {{ margin-bottom:4px; }}
+      /* NEW: subtle AU-blue callout for the intro text */
+      .au-callout {{
+        background: {AU_BLUE_LIGHT};
+        border-left: 4px solid {AU_BLUE};
+        padding: 10px 14px;
+        border-radius: 10px;
+        color: rgba(0,0,0,0.85);
+        margin-top: 0.35rem;
+      }}
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# ---------- header ----------
-left, right = st.columns([0.68, 0.32], gap="large")
-
-LOGO_PX = 160  # tweak 160–260 as you like
+# ---------- header (flat, left-aligned) ----------
+LOGO_PX = 160  # adjust 160–240 if you want
 
 if has_logo:
-    lcol, rcol = st.columns([0.22, 0.78])
-    with lcol:
-        st.image(str(AU_LOGO), width=LOGO_PX)
-    with rcol:
-        st.title(APP_TITLE)
-        st.markdown(
-            """
-            <div class="au-muted">
-            Interactive browsers for single-cell mass-spectrometry proteomics of kidney cells.<br/>
-            Explore UMAPs, per-cell QC, all identified proteins, core/unique proteins by cell type, and overlay protein abundance.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-else:
-    st.title(APP_TITLE)
-    st.markdown(
-        """
-        <div class="au-muted">
-        Interactive browsers for single-cell mass-spectrometry proteomics of kidney cells.<br/>
-        Explore UMAPs, per-cell QC, core/unique proteins by cell type, and overlay protein abundance.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.image(str(AU_LOGO), width=LOGO_PX)
 
-with right:
-    st.markdown(
-        f"""
-        <div class="au-header-right">
-          <div class="au-header-title"><strong>Created and maintained by {CONTACT_NAME}</strong></div>
-          <div><a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a></div>
-          <div class="au-muted">Updated: {date.today().isoformat()}</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+st.title(APP_TITLE)
+
+# AU-blue highlighted intro (left-aligned, full width of the page container)
+st.markdown(
+    """
+    <div class="au-callout">
+      <div><strong>Interactive browsers for single-cell mass-spectrometry proteomics of kidney cells.</strong></div>
+      <div>Explore UMAPs, per-cell QC, all identified proteins, core/unique proteins by cell type, and overlay protein abundance.</div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
 
 # ---------- quick instructions ----------
 with st.expander("How to use these browsers (quick guide)"):
@@ -144,9 +141,9 @@ def browser_card(name: str, url: str, blurb: str):
 
 c1, c2, c3 = st.columns(3, gap="large")
 with c1:
-    browser_card("Mouse kidney", BROWSER_LINKS["Mouse kidney"]["url"], BROWSER_LINKS["Mouse kidney"]["blurb"])
+    browser_card("Mouse Kidney", BROWSER_LINKS["Mouse Kidney"]["url"], BROWSER_LINKS["Mouse Kidney"]["blurb"])
 with c2:
-    browser_card("Mouse kidney (Re-annotated)", BROWSER_LINKS["Mouse kidney (Re-annotated)"]["url"], BROWSER_LINKS["Mouse kidney (Re-annotated)"]["blurb"])
+    browser_card("Mouse Kidney (Re-annotated)", BROWSER_LINKS["Mouse Kidney (Re-annotated)"]["url"], BROWSER_LINKS["Mouse Kidney (Re-annotated)"]["blurb"])
 with c3:
     browser_card("Mouse DCT", BROWSER_LINKS["Mouse DCT"]["url"], BROWSER_LINKS["Mouse DCT"]["blurb"])
 
@@ -156,7 +153,8 @@ st.markdown("---")
 st.markdown(
     f"""
     <div class="au-muted">
-      Questions or feedback? Contact <a href="mailto:{CONTACT_EMAIL}">{CONTACT_NAME}</a>.
+      <div>Questions or feedback? Contact <a href="mailto:{CONTACT_EMAIL}">{CONTACT_NAME}</a>.</div>
+      <div style="margin-top: 0.25rem;">Last modified: {date.today().isoformat()}</div>
     </div>
     """,
     unsafe_allow_html=True,
