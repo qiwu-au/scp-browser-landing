@@ -161,4 +161,4 @@ The Supplementary Methods of the manuscript also describe:
 
 - **Raw data:** ProteomeXchange / PRIDE, PXD073729 (total kidney). The accession of the DCT data will be added on publication.
 - **Processed data:** Zenodo (DOI to be added on publication). Each browser also offers its data as downloads.
-- **Code:** the link to the analysis scripts will be added here.
+- **Code:** the Python scripts of the analyses are on GitHub: [github.com/qiwu-au/scp_mouse_kidney_dct](https://github.com/qiwu-au/scp_mouse_kidney_dct).

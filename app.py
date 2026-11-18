@@ -26,8 +26,8 @@ METHODS_BLURB = ("Mice and diets, cell sorting, sample preparation, LC-MS, data 
                  "cell-type annotation and the comparison of the two diets.")
 
 # Link to the analysis scripts. The code card appears on the page once a URL is set here.
-CODE_URL   = ""
-CODE_BLURB = "Python scripts of the analyses."
+CODE_URL   = "https://github.com/qiwu-au/scp_mouse_kidney_dct"
+CODE_BLURB = "Python scripts of the analyses, with the marker lists, on GitHub."
 # --------------------------------------------------------------------- #
 
 st.set_page_config(page_title=APP_TITLE, layout="wide")
