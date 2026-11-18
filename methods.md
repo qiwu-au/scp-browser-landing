@@ -96,7 +96,7 @@ Total kidney cells and each DCT diet condition were analyzed separately.
 
 ### Cluster annotation (cell types)
 
-Clusters were annotated from their differentially expressed proteins and curated marker lists (Supplementary Table S2 of the manuscript: a kidney list with an added endothelial row, and a DCT list).
+Clusters were annotated from their differentially expressed proteins and curated marker lists (Supplementary Table S2 of the manuscript: a kidney list and a DCT list).
 
 1. **Differential proteins.** Each cluster was compared with all other cells by a two-sided Wilcoxon rank-sum test on ln(1 + intensity), with missing values set to 0, for the proteins detected in at least 20% of the cluster's cells. P values were adjusted by the Benjamini–Hochberg method within each cluster.
 2. **Top list.** Increased proteins had q < 0.05, an area under the curve (AUC) > 0.5 and a positive mean difference. The top list held up to 25 increased proteins ranked by AUC.
@@ -105,7 +105,6 @@ Clusters were annotated from their differentially expressed proteins and curated
 5. **Type-specific marker at any rank.** A cluster whose top list held no marker, or only shared markers, took instead the cell type whose type-specific marker was significantly increased at any rank. If there was none, the cluster kept its shared-marker label or was labeled *Unknown* (in the DCT data: *DCT, subtype not resolved*).
 6. **Small clusters.** Clusters of fewer than 5 cells were not annotated.
 
-- **Endothelial row:** Pecam1, Emcn, Eng, Esam, Icam2, Fabp4 and Ehd4 were added to the kidney list after these proteins were found in a cluster of 19 cells in which the macula densa marker Nos1 was not detected. The row was not pre-specified.
 - **Resolution scans:** resolutions 0.5–6.0 (total kidney) and 0.3–3.0 (each DCT diet condition) were scanned with Leiden seeds 0–9 in addition to 42, and every clustering was annotated with the same rule.
 
 ### Per-cell proliferation test (ProLIF cells, DCT data)
