@@ -41,10 +41,11 @@ These are the methods behind the data shown in the two browsers. The text follow
 
 ### LC-MS
 
-- **Instruments:** Vanquish Neo HPLC coupled to an Orbitrap Ascend mass spectrometer with a FAIMS Pro Duo interface (Thermo Fisher); a 50 cm low-load µPAC Neo column (Thermo Fisher) in a one-column setup. Solution B was 80% acetonitrile with 0.1% formic acid. Data were acquired in data-independent acquisition (DIA) mode.
+- **Instruments:** Vanquish Neo HPLC coupled to an Orbitrap Ascend mass spectrometer with a FAIMS Pro Duo interface (Thermo Fisher). The column differed between the two data sets (table below). Solution B was 80% acetonitrile with 0.1% formic acid. Data were acquired in data-independent acquisition (DIA) mode.
 
 | | Total kidney cells | DCT cells |
 | --- | --- | --- |
+| Column | 50 cm low-load µPAC Neo column (Thermo Fisher), in a one-column setup | Aurora Elite XT 15 cm nanoflow UHPLC column (IonOpticks) |
 | Gradient time | 30 min | 25 min |
 | Loading | flow ramping to 500 nL/min for 4 min | flow ramping to 500 nL/min for 2.1 min |
 | Separation at 200 nL/min | 16 min of 5–22% B, then 5 min of 22–40% B | 10.5 min of 5–22.5% B, then 7.5 min of 22.5–40% B |

@@ -9,7 +9,7 @@ import streamlit as st
 APP_TITLE     = "Kidney Single-Cell Proteome Browsers"
 CONTACT_NAME  = "Qi Wu"
 CONTACT_EMAIL = "qi.wu@biomed.au.dk"
-LAST_MODIFIED = "2026-11-18"
+LAST_MODIFIED = "2026-11-19"
 
 # The page shows one panel per study. A panel holds the browsers of that study and, in its top right
 # corner, the small icon links that belong to them (Methods, Code).
