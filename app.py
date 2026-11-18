@@ -11,47 +11,62 @@ CONTACT_NAME  = "Qi Wu"
 CONTACT_EMAIL = "qi.wu@biomed.au.dk"
 LAST_MODIFIED = "2026-11-18"
 
-# Browsers, shown as cards in this order. To add a browser, copy one entry and edit it.
-#   name    title of the card
-#   group   section of the page; section headings appear once there are two or more groups
-#   tags    short labels above the title (species, tissue, condition, ...)
-#   blurb   one or two sentences
-#   url     address of the deployed browser
-#   status  "live" = card with an "Open browser" button; "soon" = greyed card without a button
-BROWSERS = [
+# The page shows one panel per study. A panel holds the browsers of that study and, in its top right
+# corner, the small icon links that belong to them (Methods, Code).
+#
+# To add a browser to a study, copy one entry of its "browsers" list and edit it.
+# To add a new study with its own Methods and Code, copy the template below the first study.
+#
+#   title     heading of the panel
+#   methods   the methods of this study: a text file in this folder (Markdown, shown as a page of this
+#             site) or a web address; "" = no Methods icon
+#   code      web address of the analysis code; "" = no Code icon
+#   links     optional further icon links: [{"label": "Data", "icon": ":material/database:", "url": "https://..."}]
+#             (icon names: https://fonts.google.com/icons)
+#   browsers  the cards of the panel, in this order:
+#       name    title of the card
+#       tags    short labels above the title (species, tissue, condition, ...)
+#       blurb   one or two sentences
+#       url     address of the deployed browser
+#       status  "live" = card with an "Open browser" button; "soon" = greyed card without a button
+STUDIES = [
     {
-        "name": "Mouse Kidney",
-        "group": "Mouse",
-        "tags": ["Mouse", "Total kidney"],
-        "blurb": "Total mouse kidney: 712 cells and 4,054 proteins, with the cell types reported in the manuscript.",
-        "url": "https://scp-browser-kidney.streamlit.app/",
-        "status": "live",
+        "title": "Mouse kidney and distal convoluted tubule",
+        "methods": "methods.md",
+        "code": "https://github.com/qiwu-au/scp_mouse_kidney_dct",
+        "browsers": [
+            {
+                "name": "Mouse Kidney",
+                "tags": ["Mouse", "Total kidney"],
+                "blurb": "Total mouse kidney: 712 cells and 4,054 proteins, with the cell types reported in the manuscript.",
+                "url": "https://scp-browser-kidney.streamlit.app/",
+                "status": "live",
+            },
+            {
+                "name": "Mouse DCT",
+                "tags": ["Mouse", "Distal convoluted tubule"],
+                "blurb": "DCT cells of mice on a control diet (729 cells) and on a zero-potassium diet (702 cells): "
+                         "each diet on its own, and a page that compares the two.",
+                "url": "https://scp-browser-dct.streamlit.app/",
+                "status": "live",
+            },
+        ],
     },
-    {
-        "name": "Mouse DCT",
-        "group": "Mouse",
-        "tags": ["Mouse", "Distal convoluted tubule"],
-        "blurb": "DCT cells of mice on a control diet (729 cells) and on a zero-potassium diet (702 cells): "
-                 "each diet on its own, and a page that compares the two.",
-        "url": "https://scp-browser-dct.streamlit.app/",
-        "status": "live",
-    },
-    # Template for a further browser (remove the leading "# " and fill in):
+    # Template for a further study (remove the leading "# " and fill in):
     # {
-    #     "name": "Human Kidney",
-    #     "group": "Human",
-    #     "tags": ["Human", "Total kidney"],
-    #     "blurb": "One or two sentences about the data.",
-    #     "url": "https://your-app.streamlit.app/",
-    #     "status": "live",          # or "soon" while the browser is not online
+    #     "title": "Human kidney",
+    #     "methods": "methods_human_kidney.md",      # put this file next to app.py, or give a web address
+    #     "code": "https://github.com/your-account/your-repository",
+    #     "browsers": [
+    #         {
+    #             "name": "Human Kidney",
+    #             "tags": ["Human", "Total kidney"],
+    #             "blurb": "One or two sentences about the data.",
+    #             "url": "https://your-app.streamlit.app/",
+    #             "status": "live",          # or "soon" while the browser is not online
+    #         },
+    #     ],
     # },
-]
-
-# Small icon links next to the title. "page" opens a page of this site ("methods"), "url" another site.
-# Icons are Material Symbols names: https://fonts.google.com/icons
-RESOURCES = [
-    {"label": "Methods", "icon": ":material/menu_book:", "page": "methods"},
-    {"label": "Code", "icon": ":material/code:", "url": "https://github.com/qiwu-au/scp_mouse_kidney_dct"},
 ]
 # ======================================================================= #
 
@@ -65,7 +80,6 @@ AU_TEXT_MUTED = "rgba(0,0,0,0.65)"
 # ---------- paths / logo ----------
 APP_DIR  = Path(__file__).parent
 AU_LOGO  = APP_DIR / "assets" / "au_logo.png"
-METHODS  = APP_DIR / "methods.md"
 LOGO_PX  = 160  # adjust 160–240 if you want
 
 # ---------- styles ----------
@@ -80,12 +94,13 @@ st.markdown(
         padding:10px 14px; border-radius:10px; color:rgba(0,0,0,0.85); margin-top:0.35rem;
       }}
 
+      /* Study panel: heading on the left, its icon links on the right, its browser cards below */
+      [class*="st-key-study-"] {{ background:#f7f9fc; border-radius:16px; padding:18px 20px 20px 20px; margin-bottom:6px; }}
+      .au-study-title {{ font-size:1.15rem; font-weight:700; line-height:1.3; color:#1b2540; }}
+      .au-study-sub {{ font-size:0.85rem; color:{AU_TEXT_MUTED}; margin-top:2px; }}
+
       /* Browser cards: a grid that wraps by itself as browsers are added */
-      .au-group {{
-        font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
-        color:{AU_TEXT_MUTED}; margin:1.4rem 0 0.6rem;
-      }}
-      .au-grid {{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px; }}
+      .au-grid {{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px; margin-top:6px; }}
       .au-card {{
         display:flex; flex-direction:column;
         border:1px solid rgba(0,0,0,0.10); border-radius:14px; padding:18px; background:#fff;
@@ -129,23 +144,31 @@ st.markdown(
 )
 
 
-def resource_links(skip: str = "") -> None:
-    """The small icon links, in one row (the link to the page that is open is left out)."""
+def is_web(target: str) -> bool:
+    return target.lower().startswith(("http://", "https://"))
+
+
+def methods_path(study: dict) -> str:
+    """Address of a study's methods page on this site: the file name without its ending ("methods.md" -> "methods")."""
+    return Path(study["methods"]).stem.replace("_", "-").lower()
+
+
+def study_links(study: dict, with_methods: bool = True) -> None:
+    """The small icon links of one study, in one row at the right."""
     with st.container(horizontal=True, horizontal_alignment="right", gap="small"):
-        for item in RESOURCES:
-            if item.get("page") and item["page"] == skip:
-                continue
-            target = PAGES[item["page"]] if item.get("page") else item["url"]
-            st.page_link(target, label=item["label"], icon=item.get("icon"))
+        methods = study.get("methods", "")
+        if methods and with_methods:
+            st.page_link(methods if is_web(methods) else METHODS_PAGES[methods_path(study)],
+                         label="Methods", icon=":material/menu_book:")
+        if study.get("code"):
+            st.page_link(study["code"], label="Code", icon=":material/code:")
+        for link in study.get("links", []):
+            st.page_link(link["url"], label=link["label"], icon=link.get("icon"))
 
 
-def header(title: str, skip: str = "") -> None:
-    left, right = st.columns([1, 1], vertical_alignment="center")
-    with left:
-        if AU_LOGO.exists():
-            st.image(str(AU_LOGO), width=LOGO_PX)
-    with right:
-        resource_links(skip)
+def header(title: str) -> None:
+    if AU_LOGO.exists():
+        st.image(str(AU_LOGO), width=LOGO_PX)
     st.title(title)
 
 
@@ -175,16 +198,19 @@ def card_html(browser: dict) -> str:
             f"{button}</div>")
 
 
-def browser_cards() -> None:
-    groups: dict[str, list[dict]] = {}
-    for browser in BROWSERS:
-        groups.setdefault(browser.get("group", ""), []).append(browser)
-    parts = []
-    for name, members in groups.items():
-        if len(groups) > 1 and name:
-            parts.append(f"<div class='au-group'>{escape(name)}</div>")
-        parts.append("<div class='au-grid'>" + "".join(card_html(b) for b in members) + "</div>")
-    st.markdown("".join(parts), unsafe_allow_html=True)
+def study_panel(study: dict, number: int) -> None:
+    """One study: heading, its icon links, and its browser cards, inside one frame."""
+    browsers = study.get("browsers", [])
+    with st.container(border=True, key=f"study-{number}"):
+        left, right = st.columns([3, 2], vertical_alignment="center")
+        with left:
+            count = f"{len(browsers)} browser{'s' if len(browsers) != 1 else ''}"
+            st.markdown(f"<div class='au-study-title'>{escape(study['title'])}</div>"
+                        f"<div class='au-study-sub'>{count}</div>", unsafe_allow_html=True)
+        with right:
+            study_links(study)
+        st.markdown("<div class='au-grid'>" + "".join(card_html(b) for b in browsers) + "</div>",
+                    unsafe_allow_html=True)
 
 
 # ---------- page: browsers ----------
@@ -213,26 +239,38 @@ def home() -> None:
 - **Per-cell QC**: detected proteins per cell and other QC metrics.
 - **Control vs zero-K** (DCT browser): the two diets side by side.
 - **Downloads** and **About**: tables as CSV, and how the data and values were produced.
+- **Methods** and **Code**: the small links at the top right of each panel below belong to the browsers in that panel.
             """
         )
 
-    st.markdown("---")
-    browser_cards()
+    st.write("")
+    for number, study in enumerate(STUDIES):
+        study_panel(study, number)
     footer()
 
 
-# ---------- page: methods ----------
-def methods() -> None:
-    header("Methods", skip="methods")
-    st.page_link(PAGES["home"], label="Back to the browsers", icon=":material/arrow_back:")
-    text, _ = st.columns([4, 1])
-    with text:
-        st.markdown(METHODS.read_text(encoding="utf-8"), unsafe_allow_html=True)
-    footer()
+# ---------- pages: methods (one per study that keeps its methods in a text file here) ----------
+def methods_page(study: dict):
+    def page() -> None:
+        header("Methods")
+        names = ", ".join(b["name"] for b in study.get("browsers", []))
+        st.markdown(f"<div class='au-study-title'>{escape(study['title'])}</div>"
+                    f"<div class='au-study-sub'>Browsers: {escape(names)}</div>", unsafe_allow_html=True)
+        left, right = st.columns([1, 1], vertical_alignment="center")
+        with left:
+            st.page_link(HOME_PAGE, label="Back to the browsers", icon=":material/arrow_back:")
+        with right:
+            study_links(study, with_methods=False)
+        text, _ = st.columns([4, 1])
+        with text:
+            st.markdown((APP_DIR / study["methods"]).read_text(encoding="utf-8"), unsafe_allow_html=True)
+        footer()
+    return page
 
 
-PAGES = {
-    "home": st.Page(home, title="Browsers", url_path="browsers", default=True),
-    "methods": st.Page(methods, title="Methods", url_path="methods"),
+HOME_PAGE = st.Page(home, title="Browsers", url_path="browsers", default=True)
+METHODS_PAGES = {
+    methods_path(study): st.Page(methods_page(study), title=f"Methods: {study['title']}", url_path=methods_path(study))
+    for study in STUDIES if study.get("methods") and not is_web(study["methods"])
 }
-st.navigation(list(PAGES.values()), position="hidden").run()
+st.navigation([HOME_PAGE, *METHODS_PAGES.values()], position="hidden").run()
